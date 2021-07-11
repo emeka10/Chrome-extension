@@ -2,6 +2,7 @@ let names = []
 let dates = []
 let amounts = []
 let links = []
+let cTab = []
 let itemsToBuy = {}
 const nameEl = document.getElementById("name-el")
 const dateEl = document.getElementById("date-el")
@@ -9,6 +10,7 @@ const amountEl = document.getElementById("amount-el")
 const linkEl = document.getElementById("link-el")
 const saveBtn = document.getElementById("save-btn")
 const dltBtn = document.getElementById("dlt-btn")
+const cpyBtn = document.getElementById("cpy-btn")
 const tableEl = document.getElementById("table-el")
 const namesFromLocalStorage = JSON.parse( localStorage.getItem("names") )
 const datesFromLocalStorage = JSON.parse( localStorage.getItem("dates") )
@@ -57,6 +59,13 @@ function render() {
     
             
 }
+
+cpyBtn.addEventListener("click", function() {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        cTab.push(tabs[0].url)
+        linkEl.value = cTab
+    })
+})
 
 dltBtn.addEventListener("dblclick", function() {
     localStorage.clear()
